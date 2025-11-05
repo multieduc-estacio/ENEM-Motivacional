@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motivação ENEM</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #6a11cb, #ff6b6b);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  overflow: hidden;
+}
+
+.card {
+  background: rgba(0,0,0,0.45);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+  max-width: 600px;
+  width: 90%;
+}
+
+h1 { margin-bottom: 10px; }
+
+p.message {
+  font-size: 1.2rem;
+  margin: 25px 0;
+  min-height: 70px;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+button {
+  background: #ffcc00;
+  color: #1a1a1a;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+button:hover {
+  background: #ffd633;
+  transform: translateY(-2px);
+}
+</style>
+</head>
+<body>
+
+<div class="card" id="screen">
+  <h1>Preparação Motivacional</h1>
+  <h1>ENEM</h1>
+  <p id="introText">Clique no botão <b>“Começar”</b> para ler mensagens motivacionais!</p>
+  <p id="message" class="message"></p>
+  <button id="startBtn">Começar</button>
+</div>
+
+<script>
+const messages = [
+ "A calma te ajudará a enxergar cada questão com clareza.",
+"A calma te permite enxergar soluções que a ansiedade esconde.",
+"A confiança em si mesmo aumenta seu desempenho.",
+"A confiança em si mesmo é seu melhor aliado.",
+"A disciplina e o estudo te trouxeram até aqui; confie no seu preparo.",
+"A persistência e a dedicação te trouxeram até aqui. Continue!",
+"A serenidade ajuda a pensar com clareza e objetividade.",
+"Aproveite este momento para mostrar tudo o que aprendeu.",
+"Cada acerto é fruto do seu esforço e estudo constante.",
+"Cada dificuldade é uma oportunidade de mostrar sua capacidade.",
+"Cada esforço durante os estudos faz diferença agora.",
+"Cada esforço durante seus estudos fará diferença hoje.",
+"Cada questão é uma oportunidade de mostrar todo o seu conhecimento.",
+"Cada resposta correta é fruto do seu estudo e dedicação.",
+"Cada resposta correta é uma vitória do seu esforço.",
+"Concentre-se no agora, cada questão é importante.",
+"Concentre-se no presente e não se prenda ao tempo.",
+"Confie na sua memória e no que você estudou.",
+"Este é o seu momento de brilhar. Vá com coragem e confiança!",
+"Faça o seu melhor, nada mais importa!",
+"Hoje é o dia de aplicar todo o seu conhecimento.",
+"Lembre-se: foco e serenidade são suas melhores armas.",
+"Lembre-se: o ENEM é uma etapa, não define quem você é.",
+"Lembre-se: você é capaz de lidar com desafios complexos.",
+"Lembre-se: você é capaz de superar qualquer obstáculo.",
+"Mantenha a calma e pense com clareza.",
+"Mantenha a calma, mesmo diante das questões mais difíceis.",
+"Mantenha a concentração e siga em frente com confiança.",
+"Mantenha o foco e a tranquilidade em cada questão.",
+"Mantenha pensamentos positivos e confiança em suas escolhas.",
+"Não se foque no tempo ou na pressão: concentre-se nas respostas.",
+"Não se pressione além do necessário; controle a ansiedade.",
+"O esforço de cada dia se reflete nas suas respostas.",
+"Respire fundo e transforme nervosismo em energia positiva.",
+"Respire fundo, concentre-se e dê o seu melhor.",
+"Respire, acredite e siga com confiança.",
+"Sinta orgulho do caminho que percorreu até aqui.",
+"Sorria, respire e siga firme: você é capaz!",
+"Sua preparação faz você mais forte do que imagina.",
+"Sua preparação garante que você está pronto.",
+"Tenha foco e serenidade em cada passo.",
+"Transforme a ansiedade em determinação e foco.",
+"Um bom passo de cada vez é suficiente para avançar.",
+"Um passo de cada vez, você está indo muito bem.",
+"Você acredita no seu conhecimento e na sua intuição.",
+"Você consegue transformar ansiedade em concentração.",
+"Você é capaz de lidar com desafios complexos.",
+"Você é capaz de superar desafios. Acredite em você!",
+"Você é capaz de superar qualquer questão difícil.",
+"Você estudou, se preparou e está pronto para isso.",
+"Você já conquistou muito para chegar até aqui.",
+"Você se preparou muito e está pronto para enfrentar o ENEM.",
+"Você se preparou para isso. Confie no seu esforço!",
+"Você tem o conhecimento necessário para enfrentar esta prova.",
+"A calma e a confiança são mais importantes que a pressa.",
+"A calma te ajuda a enxergar soluções claras.",
+"A calma te ajudará a enxergar cada questão com clareza.",
+"A calma te permite enxergar soluções que a ansiedade esconde.",
+"A confiança em si mesmo aumenta seu desempenho.",
+"A confiança em si mesmo é seu melhor aliado.",
+"A disciplina e o estudo te trouxeram até aqui; confie no seu preparo.",
+"A persistência e a dedicação te trouxeram até este momento. Continue!",
+"A serenidade ajuda a pensar com clareza e objetividade.",
+"Acredite na sua preparação e na sua memória.",
+"Acredite no seu conhecimento e na sua intuição.",
+"Acredite no seu potencial e na sua intuição.",
+"Aproveite a prova como uma oportunidade de crescimento.",
+"Aproveite cada momento da prova com atenção plena.",
+"Aproveite cada momento e mantenha a concentração.",
+"Aproveite este momento para mostrar tudo o que aprendeu.",
+"Aproveite seu conhecimento e siga com tranquilidade.",
+"Cada acerto é fruto do seu esforço e estudo constante.",
+"Cada acerto é resultado da sua preparação.",
+"Cada dificuldade é uma oportunidade de mostrar seu talento.",
+"Cada dificuldade é uma oportunidade de mostrar sua capacidade.",
+"Cada esforço durante os estudos faz diferença agora.",
+"Cada esforço durante seus estudos fará diferença hoje.",
+"Cada página estudada contribui para seu sucesso hoje.",
+"Cada passo que você deu nos estudos conta agora.",
+"Cada questão é uma chance de se superar.",
+"Cada questão é uma oportunidade de brilhar.",
+"Cada questão é uma oportunidade de mostrar todo o seu conhecimento.",
+"Cada resposta certa é fruto do seu estudo constante.",
+"Cada resposta correta é fruto do seu estudo e dedicação.",
+"Cada resposta correta é uma vitória do seu esforço.",
+"Concentre-se no agora, cada questão é importante.",
+"Concentre-se no presente e não se prenda ao tempo.",
+"Confie na sua memória e no que você estudou.",
+"Este é o seu momento de brilhar. Vá com coragem e confiança!",
+"Este é o seu momento de mostrar o melhor de você.",
+"Faça o seu melhor, e isso já é motivo de orgulho.",
+"Foco e confiança caminham lado a lado.",
+"Hoje é o dia de aplicar todo o seu conhecimento.",
+"Hoje é o dia de mostrar o seu melhor, confie no seu potencial.",
+"Hoje é o momento de colocar em prática tudo que aprendeu.",
+"Lembre-se: cada acerto é uma vitória, cada passo conta.",
+"Lembre-se: foco e calma são suas maiores ferramentas.",
+"Lembre-se: foco e serenidade são suas melhores armas.",
+"Lembre-se: o ENEM é uma etapa, não define quem você é.",
+"Lembre-se: você é capaz de lidar com desafios complexos.",
+"Lembre-se: você é capaz de superar qualquer obstáculo.",
+"Mantenha a calma e pense com clareza.",
+"Mantenha a calma, mesmo diante das questões mais difíceis.",
+"Mantenha a concentração e siga em frente com confiança.",
+"Mantenha a confiança e a serenidade em cada momento.",
+"Mantenha a confiança, você sabe mais do que pensa.",
+"Mantenha o equilíbrio entre concentração e confiança.",
+"Mantenha o foco e a tranquilidade em cada questão.",
+"Mantenha pensamentos positivos e confiança em suas escolhas.",
+"Mantenha pensamentos positivos e foco nas respostas.",
+"Mantenha pensamentos positivos em cada instante.",
+"Mantenha pensamentos positivos mesmo diante de dificuldades.",
+"Não se foque no tempo ou na pressão: concentre-se nas respostas.",
+"Não se pressione além do necessário; controle a ansiedade.",
+"O esforço de cada dia se reflete nas suas respostas.",
+"O esforço de meses de estudo vai se refletir agora.",
+"Respire fundo e siga firme, você está pronto.",
+"Respire fundo e transforme ansiedade em energia positiva.",
+"Respire fundo e transforme nervosismo em energia positiva.",
+"Respire fundo, concentre-se e dê o seu melhor.",
+"Respire, acredite e siga com confiança.",
+"Seu esforço diário vai se refletir agora.",
+"Sinta orgulho de todo seu preparo e dedicação.",
+"Sinta orgulho do caminho que percorreu até aqui.",
+"Sorria, respire e siga firme: você é capaz!",
+"Sua dedicação faz você forte para qualquer desafio.",
+"Sua dedicação te trouxe até este momento, continue!",
+"Sua mente preparada é sua melhor aliada.",
+"Sua preparação faz você mais forte do que imagina.",
+"Sua preparação garante que você está pronto.",
+"Tenha fé em si mesmo, você está preparado para este desafio.",
+"Tenha foco e serenidade em cada passo.",
+"Transforme a ansiedade em determinação e foco.",
+"Transforme desafios em oportunidades de aprendizado.",
+"Transforme nervosismo em determinação.",
+"Um bom passo de cada vez é suficiente para avançar.",
+"Um passo de cada vez te leva a grandes conquistas.",
+"Um passo de cada vez, você está indo muito bem.",
+"Você consegue transformar ansiedade em concentração.",
+"Você é capaz de lidar com desafios complexos.",
+"Você é capaz de lidar com qualquer questão inesperada.",
+"Você é capaz de superar desafios. Acredite em você!",
+"Você é capaz de superar limites que antes pareciam impossíveis.",
+"Você é capaz de superar qualquer questão difícil.",
+"Você é mais capaz do que imagina.",
+"Você está pronto para mostrar todo o seu potencial.",
+"Você estudou, se preparou e está pronto para isso.",
+"Você já conquistou muito para chegar até aqui.",
+"Você se preparou muito e está pronto para enfrentar o ENEM.",
+"Você se preparou muito para chegar até aqui. Confie no seu esforço!",
+"Você tem forças e habilidades suficientes para vencer hoje.",
+"Você tem habilidades suficientes para lidar com qualquer questão.",
+"Você tem o conhecimento necessário para enfrentar esta prova.",
+"Você tem recursos para lidar com qualquer questão."
+];
+
+const audios = [
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-11.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-12.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-13.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-14.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-15.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3",
+  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3"
+];
+
+const messageEl = document.getElementById("message");
+const introText = document.getElementById("introText");
+const startBtn = document.getElementById("startBtn");
+let audio = null;
+
+function shuffleArray(arr) {
+  return arr.slice().sort(() => 0.5 - Math.random());
+}
+
+function startSession() {
+  startBtn.disabled = true;
+  startBtn.style.display = 'none';
+  introText.style.display = 'none';
+
+  // Escolhe música aleatória
+  const musicSrc = audios[Math.floor(Math.random() * audios.length)];
+  if (audio) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+  audio = new Audio(musicSrc);
+  audio.volume = 0.4;
+  audio.play();
+
+  // Seleciona 10 mensagens aleatórias
+  const shuffled = shuffleArray(messages);
+  const sessionMessages = shuffled.slice(0, 10);
+  let i = 0;
+
+  function showNextMessage() {
+    if (i < sessionMessages.length) {
+      messageEl.style.opacity = 0;
+      setTimeout(() => {
+        messageEl.textContent = sessionMessages[i];
+        messageEl.style.opacity = 1;
+        i++;
+        setTimeout(showNextMessage, 6000); // troca a cada 6s
+      }, 500);
+    } else {
+      messageEl.textContent = "Clique em 'Ver novamente' para novas mensagens e música.";
+      startBtn.textContent = "Ver novamente";
+      startBtn.disabled = false;
+      startBtn.style.display = 'inline-block';
+    }
+  }
+
+  showNextMessage();
+}
+
+startBtn.addEventListener("click", startSession);
+</script>
+
+</body>
+</html>
